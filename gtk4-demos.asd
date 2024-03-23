@@ -6,5 +6,6 @@
   :license  "Specify license here"
   :version "0.0.1"
   :serial t
+  :depends-on (#:cl-gtk4)
   :components ((:file "package")
                (:file "gtk4-demos")))
