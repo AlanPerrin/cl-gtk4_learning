@@ -8,4 +8,5 @@
   :serial t
   :depends-on (#:cl-gtk4)
   :components ((:file "package")
+	       (:file "buttons")
                (:file "gtk4-demos")))

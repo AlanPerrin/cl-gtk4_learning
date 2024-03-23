@@ -57,7 +57,8 @@
 (defun buttons (app)
   (defparameter box nil)
   (let ((window (gir:invoke (*gtk* "ApplicationWindow" 'new) app))
-	(button (gir:invoke (*gtk* "Button" 'new-with-label) "close      "))
+	(button (gir:invoke (*gtk* "Button" 'new-with-label) "close"))
+	(box (gir:invoke (*gtk* "box" 'n
 	)
     (setf(window-title window)"buttons")
     (setf (widget-size-request window ) '(200 200))
