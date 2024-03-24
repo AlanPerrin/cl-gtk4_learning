@@ -110,6 +110,7 @@
   (let* ((window (gir:invoke (*gtk* "ApplicationWindow" 'new) app))
          (button (gir:invoke (*gtk* "Button" 'new-with-label) "Close"))
          (label (gir:invoke (*gtk* "Label" 'new) "My Test"))
+	 (check (gir:invoke (*gtk* "CheckButton" 'new-with-label) "option 2"))
          (box (gir:invoke (*gtk* "Box" 'new) 1 6))
 	 (toggle (gir:invoke (*gtk* "ToggleButton" 'new-with-label) "option 1")))
     ;; Set window properties
@@ -134,6 +135,7 @@
     ;; Pack the label, radio buttons, and button into the box
     (box-append box label)
     (box-append box toggle)
+    (box-append box check)
     (box-append box button)
     
     ;; Add the box to the window
