@@ -3,14 +3,14 @@
 
 (defvar *group* nil) 
 
-(defun buttons2 (app)
+(defun widgets (app)
   (let* ((window (gir:invoke (*gtk* "ApplicationWindow" 'new) app))
          (button (gir:invoke (*gtk* "Button" 'new-with-label) "Close"))
          (label (gir:invoke (*gtk* "Label" 'new) "My Test"))
 	 (check (gir:invoke (*gtk* "CheckButton" 'new-with-label) "option 2"))
          (box (gir:invoke (*gtk* "Box" 'new) 1 6))
 	 (toggle (gir:invoke (*gtk* "ToggleButton" 'new-with-label) "option 1"))
-	 (scale (gir:invoke (*gtk* "Scale" 'new-with-range) :orientation :horizontal :adjustment (gir:invoke (*gtk* "Adjustment" 'new) 0.0 0.0 100.0 1.0 10.0)))
+	; (scale (gir:invoke (*gtk* "Scale" 'new-with-range) :orientation :horizontal :adjustment (gir:invoke (*gtk* "Adjustment" 'new) 0.0 0.0 100.0 1.0 10.0)))
 	 )
     ;; Set window properties
     (setf (window-title window) "Buttons")
@@ -35,7 +35,7 @@
     (box-append box label)
     (box-append box toggle)
     (box-append box check)
-    (box-append box scale)
+ ;   (box-append box scale)
     (box-append box button)
     
     ;; Add the box to the window
