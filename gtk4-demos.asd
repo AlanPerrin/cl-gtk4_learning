@@ -9,4 +9,6 @@
   :depends-on (#:cl-gtk4)
   :components ((:file "package")
 	       (:file "buttons")
+	       (:file "my-main")
+	       (:file "widgets")
                (:file "gtk4-demos")))
