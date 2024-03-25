@@ -199,15 +199,22 @@
       (when app
         (gir:invoke app 'quit)))
     
-    ;; Create a callback function for button 4
+
+        ;; Create a callback function for button 4
     (defun open-new-window-with-scale (button)
       (declare (ignore button))
-      ;; Create and show a new window with a scale widget
+      ;; Create and show a new window with a scale widget NOT WORKING
       (let* ((new-window (gir:invoke (*gtk* "ApplicationWindow" 'new) app))
-             (scale (gir:invoke (*gtk* "Scale" 'new-with-range) 0 100.0d0 1.0d0 1.0d0)))
-        (setf (window-title new-window) "New Window with Scale")
+             (scale (gir:invoke (*gtk* "Scale" 'new-with-range) 0 100.0d0 1.0d0 1.0d0))
+             (box (gir:invoke (*gtk* "Box" 'new) 1 6)))
+        (setf (window-title new-window) "New Window with Scale test")
         (setf (widget-size-request new-window) '(300 200))
-        (gir:invoke (new-window 'set-child) scale)
+        
+        ;; Pack the scale into a box
+        (box-append box scale)
+        
+        ;; Add the box to the new window
+        (gir:invoke (new-window 'set-child) box)
         (gir:invoke (new-window 'show))))
     
     ;; Connect the "clicked" signal of each button to their respective callback functions
