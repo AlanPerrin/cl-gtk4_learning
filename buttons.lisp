@@ -5,22 +5,6 @@
   (format t "Hello World! ~%"))
 
 
-(defun buttons1 (app)
-  (let ((window (gir:invoke (*gtk* "ApplicationWindow" 'new) app))
-	(box (gir:invoke (*gtk* "Box" 'new) 1 6 ))
-	(button (gir:invoke (*gtk* "Button" 'new-with-label) "new window")))
-    (setf(window-title window)"buttons")
-    (setf (widget-size-request window ) '(500 500))
-
-    (gir:connect button :clicked
-                 (lambda (button)
-		   (declare (ignore button))
-                 ;  (window-destroy window)
-		   (new-window)))
-    (box-append box button)
-    (gir:invoke (window 'set-child) box)
-    (gir:invoke (window 'show))))
-
 
 
 (defun buttons (app)

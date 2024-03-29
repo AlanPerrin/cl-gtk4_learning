@@ -1,8 +1,7 @@
 (in-package #:gtk4-demos)
 
 
-(defvar *group* nil)
-;defvar *adjustment* (gir:invoke (*gtk* "Adjustment" 'new) 0.0 0.0 10.0 1.0 1.0))
+;(defvar *group* (gir:invoke (*gtk* "RadioButton" 'new)))
 
 (defun widgets (app)
   (let* ((window (gir:invoke (*gtk* "ApplicationWindow" 'new) app))
@@ -13,14 +12,16 @@
 	 (check1 (gir:invoke (*gtk* "CheckButton" 'new-with-label) "option 1"))
 	 (check2 (gir:invoke (*gtk* "CheckButton" 'new-with-label) "option 2"))
 	 (entry (gir:invoke (*gtk* "Entry" 'new)))
-;	 (scale (gir:invoke (*gtk* "Scale" 'new) 0 10))
+	 (scale (gir:invoke (*gtk* "Scale" 'new-with-range) 0 0.1d0 10.d0 1.d0))
          (box (gir:invoke (*gtk* "Box" 'new) 1 6))
 	 (print-button (gir:invoke (*gtk* "Button" 'new-with-label) "Print Entry Contents"))
 	 (toggle (gir:invoke (*gtk* "ToggleButton" 'new-with-label) "option 1"))
+	 (toggle2 (gir:invoke (*gtk* "ToggleButton" 'new-with-label) "option 2"))
 	 )
     ;; Set window properties
     (setf (window-title window) "Buttons")
     (setf (widget-size-request window) '(200 200))
+
     
     ;; Connect the "clicked" signal of the button to a callback function
     (gir:connect button :clicked
@@ -30,7 +31,7 @@
                    ))
 
         ;; Set progress bar to be half complete
-					;(gir:invoke progress-bar 'set-fraction 0.5)
+    (gir:invoke (progress-bar 'set-fraction) 0.5d0)
 
 
     ;; Callback function to print entry contents
@@ -48,22 +49,34 @@
     
     (setf (gir:property label 'margin-top) 50)
 
-    ;; Group the check buttons
-    (gir:invoke check1 'setgroup check1)
-    (gir:invoke check2 'setgroup check1)
+    ;; Group the Toggle buttons
+    (gir:invoke (toggle 'set-group) toggle)
+    (gir:invoke (toggle2 'set-group) toggle)
+
+    ;Group the check buttons
+    (gir:invoke (check1 'set-group)check1)
+    (gir:invoke (check2 'set-group)check1)
+    
+
+
+      ;Toggle signals
+    (gir:connect  toggle :toggled (lambda (button) (declare (ignore button)) (format t "Option 1 toggled~%" )))
+    
         ;; Connect callback functions for toggled signal
-    (gir:connect  check1 :toggled (lambda (button) (declare (ignore button)) (format t "Option 1 toggled~%")))
-    (gir:connect  check2 :toggled (lambda (button) (declare (ignore button)) (format t "Option 1 toggled~%")))
+    (gir:connect  check1 :toggled (lambda (button) (declare (ignore button)) (format t "Option 1 toggled~%" )))
+    (gir:connect  check2 :toggled (lambda (button) (declare (ignore button)) (format t "~a ~%" (gir:invoke (check2 'get-label)))))
     
     ;; Pack the label, radio buttons, and button into the box
     (box-append box label)
     (box-append box separator) ;; Add separator here
     (box-append box toggle)
+    (box-append box toggle2)
     (box-append box progress-bar)
     (box-append box check1)
     (box-append box entry)
     (box-append box check2)
     (box-append box button)
+    (box-append box scale)
     (box-append box print-button)
     
     ;; Add the box to the window
